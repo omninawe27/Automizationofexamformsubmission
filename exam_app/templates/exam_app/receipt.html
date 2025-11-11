@@ -1,0 +1,22 @@
+{% extends 'exam_app/base.html' %}
+
+{% block title %}Fees Receipt{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-md">
+    <h2 class="text-2xl font-bold mb-6 text-center">Fees Receipt</h2>
+    <div class="border-2 border-gray-300 p-6 rounded-lg">
+        <h3 class="text-xl font-semibold mb-4">Exam Form Details</h3>
+        <p><strong>Form ID:</strong> {{ exam_form.id }}</p>
+        <p><strong>Student:</strong> {{ exam_form.student.username }}</p>
+        <p><strong>Course:</strong> {{ exam_form.course }}</p>
+        <p><strong>Semester:</strong> {{ exam_form.semester }}</p>
+        <p><strong>Amount Paid:</strong> ₹{{ exam_form.payment.amount }}</p>
+        <p><strong>Payment Date:</strong> {{ exam_form.payment.paid_at|date:"M d, Y H:i" }}</p>
+        <p><strong>Status:</strong> {{ exam_form.get_status_display }}</p>
+    </div>
+    <div class="mt-6 text-center">
+        <button onclick="window.print()" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">Print Receipt</button>
+    </div>
+</div>
+{% endblock %}

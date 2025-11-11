@@ -1,0 +1,235 @@
+
+{% extends 'exam_app/base.html' %}
+
+{% block title %}Fill Exam Form{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 py-8">
+    <div class="max-w-5xl mx-auto bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h2 class="text-3xl font-bold text-gray-800 mb-2">📝 Fill Exam Form</h2>
+            <p class="text-gray-600">Select your exam details and subjects</p>
+        </div>
+
+        <form method="post" class="space-y-8">
+            {% csrf_token %}
+
+            <!-- Branch Selection -->
+            <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-xl border border-blue-100">
+                <label for="{{ form.branch.id_for_label }}" class="block text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                    <span class="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">1</span>
+                    {{ form.branch.label }}
+                </label>
+                <div class="relative">
+                    {{ form.branch }}
+                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                </div>
+                {% if form.branch.errors %}
+                    <p class="text-red-500 text-sm mt-2 flex items-center">
+                        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                        </svg>
+                        {{ form.branch.errors.0 }}
+                    </p>
+                {% endif %}
+            </div>
+
+            <!-- Semester Selection -->
+            <div class="bg-gradient-to-r from-green-50 to-emerald-50 p-6 rounded-xl border border-green-100">
+                <label for="{{ form.semester.id_for_label }}" class="block text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                    <span class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">2</span>
+                    {{ form.semester.label }}
+                </label>
+                <div class="relative">
+                    {{ form.semester }}
+                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                </div>
+                {% if form.semester.errors %}
+                    <p class="text-red-500 text-sm mt-2 flex items-center">
+                        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                        </svg>
+                        {{ form.semester.errors.0 }}
+                    </p>
+                {% endif %}
+            </div>
+
+            <!-- Subjects Selection -->
+            <div class="bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-xl border border-purple-100">
+                <label class="block text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                    <span class="bg-purple-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">3</span>
+                    {{ form.subjects.label }}
+                </label>
+                <div id="subjects-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <p class="text-gray-500 col-span-full">Please select a semester to view subjects.</p>
+                </div>
+                {% if form.subjects.errors %}
+                    <p class="text-red-500 text-sm mt-3 flex items-center">
+                        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                        </svg>
+                        {{ form.subjects.errors.0 }}
+                    </p>
+                {% endif %}
+                {% if form.subjects.help_text %}
+                    <p class="text-purple-600 text-sm mt-3 flex items-center">
+                        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                        </svg>
+                        {{ form.subjects.help_text }}
+                    </p>
+                {% endif %}
+            </div>
+
+            <!-- Exam Type Selection -->
+            <div class="bg-gradient-to-r from-orange-50 to-red-50 p-6 rounded-xl border border-orange-100">
+                <label class="block text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                    <span class="bg-orange-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">4</span>
+                    {{ form.exam_type.label }}
+                </label>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    {% for value, label in form.exam_type.field.choices %}
+                    <div class="exam-type-radio bg-white p-4 rounded-lg border-2 border-gray-200 hover:border-orange-300 transition-all duration-200 cursor-pointer flex-1" onclick="selectExamType('id_{{ form.exam_type.name }}_{{ forloop.counter }}')">
+                        <div class="flex items-center">
+                            <input type="radio" name="{{ form.exam_type.name }}" value="{{ value }}" id="id_{{ form.exam_type.name }}_{{ forloop.counter }}" class="form-check-input mr-3 w-5 h-5 text-orange-600 bg-gray-100 border-gray-300 focus:ring-orange-500 focus:ring-2" {% if value == form.exam_type.value %}checked{% endif %}>
+                            <div class="flex-1">
+                                <label for="id_{{ form.exam_type.name }}_{{ forloop.counter }}" class="text-gray-800 font-semibold cursor-pointer">{{ label }}</label>
+                                <p class="text-gray-600 text-sm mt-1">
+                                    {% if value == 'winter' %}
+                                        December - January
+                                    {% else %}
+                                        May - June
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% if form.exam_type.errors %}
+                    <p class="text-red-500 text-sm mt-3 flex items-center">
+                        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                        </svg>
+                        {{ form.exam_type.errors.0 }}
+                    </p>
+                {% endif %}
+            </div>
+
+            <!-- Submit Button -->
+            <div class="text-center pt-4">
+                <button type="submit" class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-4 px-12 rounded-xl hover:from-blue-700 hover:to-indigo-700 transform hover:scale-105 transition-all duration-200 font-semibold text-lg shadow-lg hover:shadow-xl">
+                    <span class="flex items-center justify-center">
+                        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        Submit Exam Form
+                    </span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+.subject-checkbox:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.exam-type-radio:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.form-check-input:checked {
+    background-color: currentColor;
+    border-color: currentColor;
+}
+</style>
+
+<script>
+function toggleCheckbox(checkboxId) {
+    const checkbox = document.getElementById(checkboxId);
+    checkbox.checked = !checkbox.checked;
+}
+
+function selectExamType(radioId) {
+    const radio = document.getElementById(radioId);
+    radio.checked = true;
+}
+
+// Function to load subjects dynamically based on selected branch and semester
+function loadSubjects() {
+    const branchSelect = document.getElementById('id_branch');
+    const semesterSelect = document.getElementById('id_semester');
+    const selectedBranch = branchSelect.value;
+    const selectedSemester = semesterSelect.value;
+    const container = document.getElementById('subjects-container');
+
+    if (!selectedBranch || !selectedSemester) {
+        container.innerHTML = '<p class="text-gray-500 col-span-full">Please select both branch and semester to view subjects.</p>';
+        return;
+    }
+
+    // Fetch subjects from backend
+    fetch(`/get-subjects/?branch=${selectedBranch}&semester=${selectedSemester}`)
+        .then(response => response.json())
+        .then(data => {
+            container.innerHTML = ''; // Clear existing subjects
+            if (data.subjects && data.subjects.length > 0) {
+                data.subjects.forEach((subject, index) => {
+                    const subjectDiv = document.createElement('div');
+                    subjectDiv.className = 'subject-checkbox bg-white p-3 rounded-lg border-2 border-gray-200 hover:border-purple-300 transition-all duration-200 cursor-pointer';
+                    subjectDiv.onclick = () => toggleCheckbox(`id_subjects_${index}`);
+                    subjectDiv.innerHTML = `
+                        <div class="flex items-center">
+                            <input type="checkbox" name="subjects" value="${subject.value}" id="id_subjects_${index}" class="form-check-input mr-3 w-4 h-4 text-purple-600 bg-gray-100 border-gray-300 rounded focus:ring-purple-500 focus:ring-2">
+                            <label for="id_subjects_${index}" class="text-gray-700 font-medium cursor-pointer flex-1">${subject.label}</label>
+                        </div>
+                    `;
+                    container.appendChild(subjectDiv);
+                });
+            } else {
+                container.innerHTML = '<p class="text-gray-500 col-span-full">No subjects available for this branch and semester.</p>';
+            }
+        })
+        .catch(error => {
+            console.error('Error loading subjects:', error);
+            container.innerHTML = '<p class="text-red-500 col-span-full">Error loading subjects. Please try again.</p>';
+        });
+}
+
+// Add event listeners to semester and branch dropdowns
+document.addEventListener('DOMContentLoaded', function() {
+    const semesterSelect = document.getElementById('id_semester');
+    const branchSelect = document.getElementById('id_branch');
+
+    if (semesterSelect) {
+        semesterSelect.addEventListener('change', loadSubjects);
+    }
+
+    if (branchSelect) {
+        branchSelect.addEventListener('change', function() {
+            // Reset semester to default '1' when branch changes
+            semesterSelect.value = '1';
+            loadSubjects();
+        });
+    }
+
+    // Load subjects for initially selected semester
+    if (semesterSelect && semesterSelect.value) {
+        loadSubjects();
+    }
+});
+</script>
+{% endblock %}

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Form Approved</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #f8f9fa;
+        }
+        .container {
+            background-color: #ffffff;
+            margin: 20px;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        .content {
+            padding: 0 10px;
+        }
+        .greeting {
+            font-size: 18px;
+            color: #2d3748;
+            margin-bottom: 20px;
+        }
+        .success-message {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-weight: 500;
+            text-align: center;
+            font-size: 16px;
+        }
+        .celebration {
+            font-size: 48px;
+            text-align: center;
+            margin: 10px 0;
+        }
+        .form-details {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+        .form-details h3 {
+            color: #495057;
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 18px;
+            border-bottom: 2px solid #28a745;
+            padding-bottom: 8px;
+        }
+        .detail-row {
+            display: flex;
+            margin-bottom: 12px;
+            padding: 8px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .detail-label {
+            font-weight: bold;
+            color: #495057;
+            min-width: 120px;
+            margin-right: 15px;
+        }
+        .detail-value {
+            color: #6c757d;
+            font-weight: 500;
+        }
+        .approved-info {
+            background-color: #e8f5e8;
+            border: 1px solid #c3e6cb;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+        .approved-info h4 {
+            color: #155724;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        .next-steps {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
+        .next-steps h4 {
+            margin-top: 0;
+            color: #856404;
+            font-size: 16px;
+        }
+        .button {
+            display: inline-block;
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            text-decoration: none;
+            padding: 12px 30px;
+            border-radius: 6px;
+            font-weight: 600;
+            margin: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #dee2e6;
+            text-align: center;
+            color: #6c757d;
+            font-size: 14px;
+        }
+        .footer p {
+            margin: 5px 0;
+        }
+        .highlight {
+            color: #28a745;
+            font-weight: bold;
+        }
+        .important-note {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎉 Exam Form Approved!</h1>
+        </div>
+
+        <div class="content">
+            <p class="greeting">Dear <strong>{{ user_name }}</strong>,</p>
+
+            <div class="celebration">🎊</div>
+
+            <div class="success-message">
+                <strong>Congratulations!</strong> Your exam form has been <span class="highlight">approved</span> by our admin team.
+            </div>
+
+            <div class="approved-info">
+                <h4>✅ Approval Details</h4>
+                <p><strong>Form ID:</strong> {{ form_id }}</p>
+                <p><strong>Approved At:</strong> {{ approved_at }}</p>
+            </div>
+
+            <div class="form-details">
+                <h3>📋 Form Details</h3>
+                <div class="detail-row">
+                    <span class="detail-label">Branch:</span>
+                    <span class="detail-value">{{ branch|upper }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Semester:</span>
+                    <span class="detail-value">{{ semester }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Exam Type:</span>
+                    <span class="detail-value">{{ exam_type }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Subjects:</span>
+                    <span class="detail-value">{{ subjects }}</span>
+                </div>
+            </div>
+
+            <div class="next-steps">
+                <h4>🚀 What to do next?</h4>
+                <p>You can now download your official receipt from your student dashboard. The receipt serves as proof of your exam form approval.</p>
+            </div>
+
+            <div style="text-align: center;">
+                <a href="{{ dashboard_url }}" class="button">📄 Download Receipt</a>
+            </div>
+
+            <div class="important-note">
+                <strong>📌 Important:</strong> Please keep this email and your receipt for your records. You may need them for future reference.
+            </div>
+
+            <p>If you have any questions about your exam form or need assistance, please contact our support team.</p>
+        </div>
+
+        <div class="footer">
+            <p><strong>Exam Form System Team</strong></p>
+            <p>This is an automated message. Please do not reply to this email.</p>
+            <p>&copy; 2024 Exam Form System. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

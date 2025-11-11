@@ -1,0 +1,27 @@
+{% extends 'exam_app/base.html' %}
+
+{% block title %}Approve Form{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-md">
+    <h2 class="text-2xl font-bold mb-6">Review Exam Form</h2>
+    <div class="mb-6">
+        <h3 class="text-lg font-semibold mb-4">Form Details</h3>
+        <p><strong>Student:</strong> {{ exam_form.student.username }}</p>
+        <p><strong>Full Name:</strong> {{ exam_form.full_name }}</p>
+        <p><strong>Email:</strong> {{ exam_form.email }}</p>
+        <p><strong>Course:</strong> {{ exam_form.course }}</p>
+        <p><strong>Semester:</strong> {{ exam_form.semester }}</p>
+        <p><strong>Exam Type:</strong> {{ exam_form.exam_type }}</p>
+        <p><strong>Status:</strong> {{ exam_form.get_status_display }}</p>
+        <p><strong>Submitted:</strong> {{ exam_form.submitted_at }}</p>
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        <div class="flex space-x-4">
+            <button type="submit" name="action" value="approve" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700">Approve</button>
+            <button type="submit" name="action" value="reject" class="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700">Reject</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Form Submitted</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #f8f9fa;
+        }
+        .container {
+            background-color: #ffffff;
+            margin: 20px;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        .content {
+            padding: 0 10px;
+        }
+        .greeting {
+            font-size: 18px;
+            color: #2d3748;
+            margin-bottom: 20px;
+        }
+        .success-message {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 20px 0;
+            font-weight: 500;
+        }
+        .form-details {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+        .form-details h3 {
+            color: #495057;
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 18px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 8px;
+        }
+        .detail-row {
+            display: flex;
+            margin-bottom: 12px;
+            padding: 8px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .detail-label {
+            font-weight: bold;
+            color: #495057;
+            min-width: 120px;
+            margin-right: 15px;
+        }
+        .detail-value {
+            color: #6c757d;
+            font-weight: 500;
+        }
+        .next-steps {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
+        .next-steps h4 {
+            margin-top: 0;
+            color: #856404;
+            font-size: 16px;
+        }
+        .button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            padding: 12px 30px;
+            border-radius: 6px;
+            font-weight: 600;
+            margin: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #dee2e6;
+            text-align: center;
+            color: #6c757d;
+            font-size: 14px;
+        }
+        .footer p {
+            margin: 5px 0;
+        }
+        .highlight {
+            color: #667eea;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📝 Exam Form Submitted Successfully</h1>
+        </div>
+
+        <div class="content">
+            <p class="greeting">Dear <strong>{{ user_name }}</strong>,</p>
+
+            <div class="success-message">
+                ✅ Your exam form has been submitted successfully! We're excited to process your application.
+            </div>
+
+            <div class="form-details">
+                <h3>📋 Form Details</h3>
+                <div class="detail-row">
+                    <span class="detail-label">Branch:</span>
+                    <span class="detail-value">{{ branch|upper }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Semester:</span>
+                    <span class="detail-value">{{ semester }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Exam Type:</span>
+                    <span class="detail-value">{{ exam_type }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Subjects:</span>
+                    <span class="detail-value">
+                        {% for subject in subjects|split:"," %}
+                            {% if forloop.first %}1> {{ subject|trim }}{% else %}<br>{{ forloop.counter }}> {{ subject|trim }}{% endif %}
+                        {% endfor %}
+                    </span>
+                </div>
+            </div>
+
+            <div class="next-steps">
+                <h4>🚀 Next Steps</h4>
+                <p>Please proceed to the <span class="highlight">payment section</span> to complete your form submission. Your form will be reviewed by our admin team once payment is confirmed.</p>
+            </div>
+
+            
+
+            <p><center>If you have any questions, please don't hesitate to contact our support team.</center></p>
+        </div>
+
+        <div class="footer">
+            <p><strong>Exam Form System Team</strong></p>
+            <p>This is an automated message. Please do not reply to this email.</p>
+            <p>&copy; 2024 Exam Form System. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,567 @@
+{% extends 'exam_app/base.html' %}
+
+{% block title %}Register New User{% endblock %}
+
+{% block content %}
+<div id="mainBackground" class="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 transition-all duration-500">
+    <div id="innerContainer" class="max-w-lg mx-auto bg-white rounded-lg shadow-md p-6 transition-all duration-500">
+        <div class="text-center mb-6">
+            <h2 class="text-2xl font-bold text-gray-800">Register New User</h2>
+            <p class="text-gray-600 mt-2">Create a new user account</p>
+
+            <!-- Progress Bar -->
+            <div class="mt-4 mb-4">
+                <div class="w-full bg-gray-200 rounded-full h-2">
+                    <div id="progressBar" class="bg-indigo-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                </div>
+                <p class="text-xs text-gray-500 mt-1" id="progressText">Form completion: 0%</p>
+            </div>
+        </div>
+
+        <form method="post" class="space-y-4" id="registerForm">
+            {% csrf_token %}
+
+            <div>
+                <label for="id_username" class="block text-sm font-medium text-gray-700 mb-1">Username</label>
+                <div class="relative">
+                    <input type="text" name="username" id="id_username" required
+                           class="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                    <span id="usernameStatus" class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                        <!-- Icon will be inserted here -->
+                    </span>
+                    <span id="usernameSpinner" class="absolute inset-y-0 right-0 pr-3 flex items-center hidden">
+                        <svg class="animate-spin h-5 w-5 text-indigo-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                    </span>
+                </div>
+                <p id="usernameMessage" class="text-sm mt-1"></p>
+            </div>
+
+            <div>
+                <label for="id_email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                <div class="relative">
+                    <input type="email" name="email" id="id_email" required
+                           class="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                    <span id="emailStatus" class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                        <!-- Icon will be inserted here -->
+                    </span>
+                    <span id="emailSpinner" class="absolute inset-y-0 right-0 pr-3 flex items-center hidden">
+                        <svg class="animate-spin h-5 w-5 text-indigo-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                    </span>
+                </div>
+                <p id="emailMessage" class="text-sm mt-1"></p>
+            </div>
+
+            <div>
+                <label for="id_first_name" class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+                <input type="text" name="first_name" id="id_first_name" required
+                       class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+            </div>
+
+            <div>
+                <label for="id_last_name" class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+                <input type="text" name="last_name" id="id_last_name" required
+                       class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+            </div>
+
+            <div>
+                <label for="id_middle_name" class="block text-sm font-medium text-gray-700 mb-1">Middle Name <span class="text-gray-500">(Optional)</span></label>
+                <input type="text" name="middle_name" id="id_middle_name"
+                       class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+            </div>
+
+            <div>
+                <label for="id_mobile_no" class="block text-sm font-medium text-gray-700 mb-1">Mobile Number</label>
+                <div class="relative">
+                    <input type="text" name="mobile_no" id="id_mobile_no" required
+                           class="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                           placeholder="Enter 10-digit mobile number">
+                    <span id="mobileStatus" class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                        <!-- Icon will be inserted here -->
+                    </span>
+                    <span id="mobileSpinner" class="absolute inset-y-0 right-0 pr-3 flex items-center hidden">
+                        <svg class="animate-spin h-5 w-5 text-indigo-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                    </span>
+                </div>
+                <p id="mobileMessage" class="text-sm mt-1"></p>
+            </div>
+
+            <div>
+                <label for="id_aadhar_no" class="block text-sm font-medium text-gray-700 mb-1">Aadhar Number</label>
+                <div class="relative">
+                    <input type="text" name="aadhar_no" id="id_aadhar_no" required
+                           class="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                           placeholder="Enter 12-digit Aadhar number">
+                    <span id="aadharStatus" class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                        <!-- Icon will be inserted here -->
+                    </span>
+                    <span id="aadharSpinner" class="absolute inset-y-0 right-0 pr-3 flex items-center hidden">
+                        <svg class="animate-spin h-5 w-5 text-indigo-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                    </span>
+                </div>
+                <p id="aadharMessage" class="text-sm mt-1"></p>
+            </div>
+
+            <div>
+                <label for="id_date_of_birth" class="block text-sm font-medium text-gray-700 mb-1">Date of Birth</label>
+                <input type="date" name="date_of_birth" id="id_date_of_birth" required
+                       class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+            </div>
+
+            <div>
+                <label for="id_address" class="block text-sm font-medium text-gray-700 mb-1">Address</label>
+                <textarea name="address" id="id_address" required rows="3"
+                          class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                          placeholder="Enter your full address"></textarea>
+            </div>
+
+            <div>
+                <label for="id_college_id" class="block text-sm font-medium text-gray-700 mb-1">College ID</label>
+                <input type="text" name="college_id" id="id_college_id" required
+                       class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+            </div>
+
+            <div>
+                <label for="id_role" class="block text-sm font-medium text-gray-700 mb-1">Role</label>
+                <select name="role" id="id_role" required
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                    <option value="student">Student</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="id_password1" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                <div class="relative">
+                    <input type="password" name="password1" id="id_password1" required
+                           class="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                    <button type="button" id="togglePassword1" class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div id="passwordStrength" class="mt-3 mb-5 p-3 bg-gray-50 rounded-lg border border-gray-200">
+                    <div class="flex justify-between text-sm text-gray-600 mb-3">
+                        <span>Weak</span>
+                        <span>Fair</span>
+                        <span>Good</span>
+                        <span>Strong</span>
+                    </div>
+                    <div class="flex space-x-2 mb-4">
+                        <div class="strength-bar h-8 w-1/4 bg-gray-300 rounded-lg border-4 border-gray-400 transition-all duration-500"></div>
+                        <div class="strength-bar h-8 w-1/4 bg-gray-300 rounded-lg border-4 border-gray-400 transition-all duration-500"></div>
+                        <div class="strength-bar h-8 w-1/4 bg-gray-300 rounded-lg border-4 border-gray-400 transition-all duration-500"></div>
+                        <div class="strength-bar h-8 w-1/4 bg-gray-300 rounded-lg border-4 border-gray-400 transition-all duration-500"></div>
+                    </div>
+                    <p class="text-lg font-bold text-center" id="passwordStrengthText">Password strength: Very Weak</p>
+                </div>
+            </div>
+
+            <div>
+                <label for="id_password2" class="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
+                <div class="relative">
+                    <input type="password" name="password2" id="id_password2" required
+                           class="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                    <button type="button" id="togglePassword2" class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                        </svg>
+                    </button>
+                </div>
+                <p id="passwordMatchMessage" class="text-sm mt-1"></p>
+            </div>
+
+            <div class="pt-4">
+                <button type="submit" id="submitBtn" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-200">
+                    Register User
+                </button>
+            </div>
+        </form>
+
+        <div class="mt-6 text-center">
+            <a href="{% url 'admin_dashboard' %}" class="text-indigo-600 hover:text-indigo-500 text-sm">
+                ← Back to Admin Dashboard
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+// Password strength checker
+function checkPasswordStrength(password) {
+    let strength = 0;
+    const checks = [
+        password.length >= 8,
+        /[a-z]/.test(password),
+        /[A-Z]/.test(password),
+        /[0-9]/.test(password),
+        /[^A-Za-z0-9]/.test(password)
+    ];
+    strength = checks.filter(Boolean).length;
+
+    const strengthBars = document.querySelectorAll('.strength-bar');
+    const strengthText = document.getElementById('passwordStrengthText');
+
+    strengthBars.forEach((bar, index) => {
+        if (index < strength) {
+            if (strength <= 2) bar.className = 'strength-bar h-6 w-1/4 bg-red-500 rounded border-2 border-red-600 transition-all duration-300';
+            else if (strength <= 3) bar.className = 'strength-bar h-6 w-1/4 bg-yellow-500 rounded border-2 border-yellow-600 transition-all duration-300';
+            else if (strength <= 4) bar.className = 'strength-bar h-6 w-1/4 bg-blue-500 rounded border-2 border-blue-600 transition-all duration-300';
+            else bar.className = 'strength-bar h-6 w-1/4 bg-green-500 rounded border-2 border-green-600 transition-all duration-300';
+        } else {
+            bar.className = 'strength-bar h-6 w-1/4 bg-gray-200 rounded border-2 border-gray-300 transition-all duration-300';
+        }
+    });
+
+    const texts = ['', 'Very Weak', 'Weak', 'Fair', 'Good', 'Strong'];
+    strengthText.textContent = `Password strength: ${texts[strength] || 'Very Weak'}`;
+    strengthText.className = `text-sm font-medium mt-1 ${strength >= 4 ? 'text-green-600' : strength >= 3 ? 'text-blue-600' : strength >= 2 ? 'text-yellow-600' : 'text-red-600'}`;
+}
+
+// Password matching
+function checkPasswordMatch() {
+    const password1 = document.getElementById('id_password1').value;
+    const password2 = document.getElementById('id_password2').value;
+    const message = document.getElementById('passwordMatchMessage');
+
+    if (password2 === '') {
+        message.textContent = '';
+        return;
+    }
+
+    if (password1 === password2) {
+        message.textContent = 'Passwords match';
+        message.className = 'text-sm mt-1 text-green-600';
+    } else {
+        message.textContent = 'Passwords do not match';
+        message.className = 'text-sm mt-1 text-red-600';
+    }
+}
+
+// Check username availability
+async function checkUsername() {
+    const username = document.getElementById('id_username').value;
+    const status = document.getElementById('usernameStatus');
+    const spinner = document.getElementById('usernameSpinner');
+    const message = document.getElementById('usernameMessage');
+
+    if (username.length < 3) {
+        status.innerHTML = '';
+        spinner.classList.add('hidden');
+        message.textContent = '';
+        return;
+    }
+
+    // Show spinner
+    status.innerHTML = '';
+    spinner.classList.remove('hidden');
+
+    try {
+        const response = await fetch(`/check-username/?username=${encodeURIComponent(username)}`);
+        const data = await response.json();
+
+        // Hide spinner
+        spinner.classList.add('hidden');
+
+        if (data.available) {
+            status.innerHTML = '<svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>';
+            message.textContent = 'Username available';
+            message.className = 'text-sm mt-1 text-green-600';
+        } else {
+            status.innerHTML = '<svg class="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>';
+            message.textContent = 'Username already taken';
+            message.className = 'text-sm mt-1 text-red-600';
+        }
+    } catch (error) {
+        spinner.classList.add('hidden');
+        console.error('Error checking username:', error);
+    }
+}
+
+// Check email availability and domain validation
+async function checkEmail() {
+    const email = document.getElementById('id_email').value;
+    const status = document.getElementById('emailStatus');
+    const spinner = document.getElementById('emailSpinner');
+    const message = document.getElementById('emailMessage');
+
+    if (email === '') {
+        status.innerHTML = '';
+        spinner.classList.add('hidden');
+        message.textContent = '';
+        return;
+    }
+
+    // Show domain requirement message immediately
+    if (!email.includes('@')) {
+        status.innerHTML = '<svg class="w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>';
+        spinner.classList.add('hidden');
+        message.textContent = 'Email must end with @kdkce.edu.in';
+        message.className = 'text-sm mt-1 text-blue-600';
+        return;
+    }
+
+    // Check domain first
+    if (!email.toLowerCase().endsWith('@kdkce.edu.in')) {
+        status.innerHTML = '<svg class="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>';
+        spinner.classList.add('hidden');
+        message.textContent = 'Email must end with @kdkce.edu.in';
+        message.className = 'text-sm mt-1 text-red-600';
+        return;
+    }
+
+    // Show spinner
+    status.innerHTML = '';
+    spinner.classList.remove('hidden');
+
+    try {
+        const response = await fetch(`/check-email/?email=${encodeURIComponent(email)}`);
+        const data = await response.json();
+
+        // Hide spinner
+        spinner.classList.add('hidden');
+
+        if (data.available) {
+            status.innerHTML = '<svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>';
+            message.textContent = 'Email available';
+            message.className = 'text-sm mt-1 text-green-600';
+        } else {
+            status.innerHTML = '<svg class="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>';
+            message.textContent = 'Email already registered';
+            message.className = 'text-sm mt-1 text-red-600';
+        }
+    } catch (error) {
+        spinner.classList.add('hidden');
+        console.error('Error checking email:', error);
+    }
+}
+
+// Check mobile number validation
+function checkMobileNumber() {
+    const mobile = document.getElementById('id_mobile_no').value;
+    const status = document.getElementById('mobileStatus');
+    const spinner = document.getElementById('mobileSpinner');
+    const message = document.getElementById('mobileMessage');
+
+    if (mobile === '') {
+        status.innerHTML = '';
+        spinner.classList.add('hidden');
+        message.textContent = '';
+        return;
+    }
+
+    // Check if it's exactly 10 digits and numeric
+    const mobileRegex = /^\d{10}$/;
+    if (mobileRegex.test(mobile)) {
+        status.innerHTML = '<svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>';
+        message.textContent = 'Valid mobile number';
+        message.className = 'text-sm mt-1 text-green-600';
+    } else {
+        status.innerHTML = '<svg class="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>';
+        message.textContent = 'Mobile number must be exactly 10 digits';
+        message.className = 'text-sm mt-1 text-red-600';
+    }
+}
+
+// Check Aadhar number validation
+function checkAadharNumber() {
+    const aadhar = document.getElementById('id_aadhar_no').value;
+    const status = document.getElementById('aadharStatus');
+    const spinner = document.getElementById('aadharSpinner');
+    const message = document.getElementById('aadharMessage');
+
+    if (aadhar === '') {
+        status.innerHTML = '';
+        spinner.classList.add('hidden');
+        message.textContent = '';
+        return;
+    }
+
+    // Check if it's exactly 12 digits and numeric
+    const aadharRegex = /^\d{12}$/;
+    if (aadharRegex.test(aadhar)) {
+        status.innerHTML = '<svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>';
+        message.textContent = 'Valid Aadhar number';
+        message.className = 'text-sm mt-1 text-green-600';
+    } else {
+        status.innerHTML = '<svg class="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>';
+        message.textContent = 'Aadhar number must be exactly 12 digits';
+        message.className = 'text-sm mt-1 text-red-600';
+    }
+}
+
+// Toggle password visibility
+function togglePasswordVisibility(inputId, buttonId) {
+    const input = document.getElementById(inputId);
+    const button = document.getElementById(buttonId);
+    const isPassword = input.type === 'password';
+
+    input.type = isPassword ? 'text' : 'password';
+    button.innerHTML = isPassword
+        ? '<svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"></path></svg>'
+        : '<svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>';
+}
+
+// Update progress bar
+function updateProgressBar() {
+    const form = document.getElementById('registerForm');
+    const inputs = form.querySelectorAll('input[required], select[required]');
+    let filled = 0;
+
+    inputs.forEach(input => {
+        if (input.value.trim() !== '') {
+            filled++;
+        }
+    });
+
+    const progress = (filled / inputs.length) * 100;
+    const progressBar = document.getElementById('progressBar');
+    const progressText = document.getElementById('progressText');
+    const mainBackground = document.getElementById('mainBackground');
+
+    progressBar.style.width = progress + '%';
+    progressText.textContent = `Form completion: ${Math.round(progress)}%`;
+
+    // Change color based on progress
+    if (progress < 50) {
+        progressBar.className = 'bg-red-500 h-2 rounded-full transition-all duration-300 animate-pulse';
+        mainBackground.className = 'min-h-screen bg-gradient-to-br from-red-50 to-red-100 py-12 px-4 sm:px-6 lg:px-8 transition-all duration-500';
+        innerContainer.className = 'max-w-md mx-auto bg-white rounded-lg shadow-lg border-2 border-red-300 p-6 transition-all duration-500 hover:shadow-xl';
+    } else if (progress < 100) {
+        progressBar.className = 'bg-yellow-500 h-2 rounded-full transition-all duration-300 animate-pulse';
+        mainBackground.className = 'min-h-screen bg-gradient-to-br from-yellow-50 to-yellow-100 py-12 px-4 sm:px-6 lg:px-8 transition-all duration-500';
+        innerContainer.className = 'max-w-md mx-auto bg-white rounded-lg shadow-lg border-2 border-yellow-300 p-6 transition-all duration-500 hover:shadow-xl';
+    } else {
+        progressBar.className = 'bg-green-500 h-2 rounded-full transition-all duration-300 animate-bounce';
+        mainBackground.className = 'min-h-screen bg-gradient-to-br from-green-50 to-green-100 py-12 px-4 sm:px-6 lg:px-8 transition-all duration-500';
+        innerContainer.className = 'max-w-md mx-auto bg-white rounded-lg shadow-lg border-2 border-green-300 p-6 transition-all duration-500 hover:shadow-xl scale-105';
+    }
+}
+
+// Validate form and enable/disable submit button
+function validateForm() {
+    const form = document.getElementById('registerForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const inputs = form.querySelectorAll('input[required], select[required]');
+    let isValid = true;
+
+    inputs.forEach(input => {
+        if (input.value.trim() === '') {
+            isValid = false;
+        }
+    });
+
+    // Additional validations
+    const password1 = document.getElementById('id_password1').value;
+    const password2 = document.getElementById('id_password2').value;
+    const usernameMessage = document.getElementById('usernameMessage').textContent;
+    const emailMessage = document.getElementById('emailMessage').textContent;
+
+    if (password1 !== password2 || password1.length < 8) {
+        isValid = false;
+    }
+
+    if (usernameMessage.includes('taken') || emailMessage.includes('registered')) {
+        isValid = false;
+    }
+
+    submitBtn.disabled = !isValid;
+    submitBtn.className = isValid
+        ? 'w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-200'
+        : 'w-full bg-gray-400 text-gray-200 py-2 px-4 rounded-md cursor-not-allowed transition duration-200';
+}
+
+// Event listeners
+document.addEventListener('DOMContentLoaded', function() {
+    const password1 = document.getElementById('id_password1');
+    const password2 = document.getElementById('id_password2');
+    const username = document.getElementById('id_username');
+    const email = document.getElementById('id_email');
+    const mobile = document.getElementById('id_mobile_no');
+    const aadhar = document.getElementById('id_aadhar_no');
+    const togglePassword1Btn = document.getElementById('togglePassword1');
+    const togglePassword2Btn = document.getElementById('togglePassword2');
+    const form = document.getElementById('registerForm');
+
+    password1.addEventListener('input', function() {
+        checkPasswordStrength(this.value);
+        checkPasswordMatch();
+        updateProgressBar();
+        validateForm();
+    });
+
+    password2.addEventListener('input', function() {
+        checkPasswordMatch();
+        updateProgressBar();
+        validateForm();
+    });
+
+    username.addEventListener('input', function() {
+        checkUsername();
+        updateProgressBar();
+        validateForm();
+    });
+
+    email.addEventListener('input', function() {
+        checkEmail();
+        updateProgressBar();
+        validateForm();
+    });
+
+    mobile.addEventListener('input', function() {
+        checkMobileNumber();
+        updateProgressBar();
+        validateForm();
+    });
+
+    aadhar.addEventListener('input', function() {
+        checkAadharNumber();
+        updateProgressBar();
+        validateForm();
+    });
+
+    // Add event listeners for other inputs
+    form.querySelectorAll('input[required], select[required]').forEach(input => {
+        if (input !== password1 && input !== password2 && input !== username && input !== email && input !== mobile && input !== aadhar) {
+            input.addEventListener('input', function() {
+                updateProgressBar();
+                validateForm();
+            });
+        }
+    });
+
+    togglePassword1Btn.addEventListener('click', () => togglePasswordVisibility('id_password1', 'togglePassword1'));
+    togglePassword2Btn.addEventListener('click', () => togglePasswordVisibility('id_password2', 'togglePassword2'));
+
+    // Initial validation
+    updateProgressBar();
+    validateForm();
+
+    // Auto-hide notifications after 3 seconds
+    const notifications = document.querySelectorAll('.alert, .message, .notification');
+    notifications.forEach(notification => {
+        setTimeout(() => {
+            notification.style.transition = 'opacity 0.5s ease-out';
+            notification.style.opacity = '0';
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 500);
+        }, 3000);
+    });
+});
+</script>
+{% endblock %}
