@@ -9,3 +9,47 @@ services:
         value: exam_form_system.settings
       - key: PYTHONPATH
         value: /opt/render/project/src
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: false
+      - key: ALLOWED_HOSTS
+        fromSecret: allowed_hosts
+      - key: CSRF_TRUSTED_ORIGINS
+        fromSecret: csrf_trusted_origins
+      - key: MYSQL_DATABASE
+        fromSecret: mysql_database
+      - key: MYSQL_USER
+        fromSecret: mysql_user
+      - key: MYSQL_PASSWORD
+        fromSecret: mysql_password
+      - key: MYSQL_HOST
+        fromSecret: mysql_host
+      - key: MYSQL_PORT
+        fromSecret: mysql_port
+      - key: MYSQL_SSL
+        value: true
+      - key: RAZORPAY_KEY_ID
+        fromSecret: razorpay_key_id
+      - key: RAZORPAY_KEY_SECRET
+        fromSecret: razorpay_key_secret
+      - key: EMAIL_HOST_USER
+        fromSecret: email_host_user
+      - key: EMAIL_HOST_PASSWORD
+        fromSecret: email_host_password
+      - key: DEFAULT_FROM_EMAIL
+        fromSecret: default_from_email
+      - key: EMAIL_HOST
+        value: smtp.gmail.com
+      - key: EMAIL_PORT
+        value: 587
+      - key: EMAIL_USE_TLS
+        value: true
+      - key: PASSWORD_RESET_TIMEOUT
+        value: 259200
+    autoDeploy: true
+    healthCheckPath: /
+    disk:
+      name: django-media
+      mountPath: /opt/render/project/src/media
+      sizeGB: 1
