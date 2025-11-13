@@ -1,20 +1,19 @@
-# TODO: Make Interactive UI for Register Page
+# TODO: Setup Aiven MySQL and Deploy to Render
 
 ## Steps to Complete:
-- [x] Add JavaScript for real-time username availability check via AJAX
-- [x] Add JavaScript for real-time email availability check via AJAX
-- [x] Implement password strength indicator
-- [x] Add password matching validation
-- [x] Update register.html template with interactive elements and JavaScript
-- [x] Add form completion progress bar
-- [x] Add show/hide password toggle buttons
-- [x] Add loading spinners for AJAX calls
-- [x] Disable submit button until form is valid
-- [x] Add smooth transitions and animations
-- [x] Test the enhanced interactive features
-- [x] Change redirect after registration to login page
+- [ ] Sign up for Aiven account and create a free MySQL service
+- [ ] Obtain database connection details (host, port, database name, username, password)
+- [ ] Update requirements.txt to include mysqlclient (already done)
+- [ ] Modify exam_form_system/settings.py to use MySQL with environment variables (prepared)
+- [ ] Update render.yaml to include MySQL environment variables (prepared)
+- [ ] Test database connection locally
+- [ ] Run migrations to transfer data from SQLite to MySQL
+- [ ] Deploy to Render and verify connection
+- [ ] Test application functionality on Render
 
 ## Notes:
-- Use existing Django views for username/email checks.
-- Provide visual feedback with icons/colors.
-- Ensure CSRF token is handled for AJAX if needed (but since it's GET, might not be).
+- Aiven free tier: 1GB storage, 5GB traffic/month, may require card verification.
+- Use environment variables for security.
+- Ensure SSL connection for Aiven.
+- Backup SQLite data before migration.
+- Data backed up to backup.json

@@ -93,8 +93,16 @@ WSGI_APPLICATION = 'exam_form_system.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': config('MYSQL_DATABASE', default='exam_form_system'),
+        'USER': config('MYSQL_USER', default='root'),
+        'PASSWORD': config('MYSQL_PASSWORD', default=''),
+        'HOST': config('MYSQL_HOST', default='localhost'),
+        'PORT': config('MYSQL_PORT', default='3306'),
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+            'ssl': {} if config('MYSQL_SSL', default=True, cast=bool) else None,
+        },
     }
 }
 
